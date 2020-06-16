@@ -1,4 +1,4 @@
-﻿@model Doggo.Models.Walker
+﻿@model Doggo.Models.Owner
 
 @{
     ViewData["Title"] = "Details";
@@ -17,10 +17,22 @@
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NeighborhoodId)
@@ -29,10 +41,10 @@
             @Html.DisplayFor(model => model.NeighborhoodId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.Phone)
         </dt>
         <dd class = "col-sm-10">
-            <img class="bg-info" src="@Model.ImageUrl" alt="avatar" />
+            @Html.DisplayFor(model => model.Phone)
         </dd>
     </dl>
 </div>
