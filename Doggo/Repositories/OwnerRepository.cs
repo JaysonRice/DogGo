@@ -91,7 +91,8 @@ namespace Doggo.Repositories
                             o.Phone,
                             n.[Name] as NeighborhoodName
                         FROM Owner o
-                        JOIN Neighborhood n ON n.Id = o.NeighborhoodId";
+                        INNER JOIN Neighborhood n ON n.Id = o.NeighborhoodId
+                        WHERE o.Id = @id;";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
