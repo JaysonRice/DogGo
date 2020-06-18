@@ -87,12 +87,19 @@ namespace Doggo.Controllers
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
 
-            if (owner == null)
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+            OwnerFormViewModel vm = new OwnerFormViewModel()
+            {
+                Owner = owner,
+                Neighborhoods = neighborhoods
+            };
+
+            if (vm.Owner == null)
             {
                 return NotFound();
             }
 
-            return View(owner);
+            return View(vm);
         }
 
         // POST: Ownerscontroller/Edit/5
