@@ -2,124 +2,120 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Doggo.Models;
-using Doggo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Doggo.Models;
+using Doggo.Repositories;
 using Microsoft.Extensions.Configuration;
 
 namespace Doggo.Controllers
 {
-    public class OwnersController : Controller
+    public class DogsController : Controller
     {
         private readonly OwnerRepository _ownerRepo;
         private readonly DogRepository _dogRepo;
 
         // The constructor accepts an IConfiguration object as a parameter. This class comes from the ASP.NET framework and is useful for retrieving things out of the appsettings.json file like connection strings.
-        public OwnersController(IConfiguration config)
+        public DogsController(IConfiguration config)
         {
             _ownerRepo = new OwnerRepository(config);
             _dogRepo = new DogRepository(config);
         }
 
-        // GET: OwnersController
+        // GET: DogsController
         public ActionResult Index()
         {
-            List<Owner> owners = _ownerRepo.GetAllOwners();
-            return View(owners);
+            List<Dog> dogs = _dogRepo.GetAllDogs();
+            return View(dogs);
         }
 
-        // GET: OwnersController/Details/5
+        // GET: DogsController/Details/5
         public ActionResult Details(int id)
         {
-            Owner owner = _ownerRepo.GetOwnerById(id);
+            Dog dog = _dogRepo.GetDogById(id);
 
-            if (owner == null)
+            if (dog == null)
             {
                 return NotFound();
             }
 
-            owner.Dogs = _dogRepo.GetDogsByOwnerId(id);
-
-            return View(owner);
+            return View(dog);
+        
         }
 
-        // GET: OwnersController/Create
+        // GET: DogsController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Owners/Create
+        // POST: DogsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Owner owner)
+        public ActionResult Create(Dog dog)
         {
             try
             {
-                _ownerRepo.AddOwner(owner);
+                _dogRepo.AddDog(dog);
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View(owner);
+                return View(dog);
             }
         }
 
-        // GET: Ownerscontroller/Edit/5
+        // GET: DogsController/Edit/5
         public ActionResult Edit(int id)
         {
-            Owner owner = _ownerRepo.GetOwnerById(id);
+            Dog dog = _dogRepo.GetDogById(id);
 
-            if (owner == null)
+            if (dog == null)
             {
                 return NotFound();
             }
 
-            return View(owner);
+            return View(dog);
         }
 
-        // POST: Ownerscontroller/Edit/5
+        // POST: DogsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Owner owner)
+        public ActionResult Edit(int id, Dog dog)
         {
             try
             {
-                _ownerRepo.UpdateOwner(owner);
-
-                return RedirectToAction("Index");
+                _dogRepo.UpdateDog(dog);
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch
             {
-                return View(owner);
+                return View(dog);
             }
         }
 
-        // GET: Ownerscontroller/Delete/5
+        // GET: DogsController/Delete/5
         public ActionResult Delete(int id)
         {
-            Owner owner = _ownerRepo.GetOwnerById(id);
-
-            return View(owner);
+            Dog dog = _dogRepo.GetDogById(id);
+            return View(dog);
         }
 
-        // POST: OwnersController/Delete/5
-        // POST: Owners/Delete/5
+        // POST: DogsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Owner owner)
+        public ActionResult Delete(int id, Dog dog)
         {
             try
             {
-                _ownerRepo.DeleteOwner(id);
+                _dogRepo.DeleteDog(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch
             {
-                return View(owner);
+                return View(dog);
             }
         }
     }

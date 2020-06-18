@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Doggo.Models;
 
+
 namespace Doggo.Controllers
 {
     public class HomeController : Controller
