@@ -217,7 +217,7 @@ namespace Doggo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            UPDATE Owner
+                            UPDATE Dog
                             SET 
                                 [Name] = @name, 
                                 Breed = @breed, 
@@ -245,6 +245,7 @@ namespace Doggo.Repositories
                         cmd.Parameters.AddWithValue("@imageUrl", dog.ImageUrl);
                     }
                     cmd.Parameters.AddWithValue("@ownerId", dog.OwnerId);
+                    cmd.Parameters.AddWithValue("@id", dog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
