@@ -1,42 +1,54 @@
-﻿@model Doggo.Models.Walker
+﻿@model Doggo.Models.ViewModels.WalkerViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
+@{ ViewData["Title"] = "Profile"; }
 
 <div>
-    <h4>Here are the details for: @Model.Name</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Neighborhood
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Neighborhood.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <img class="bg-info" src="@Model.ImageUrl" alt="avatar" />
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h1 class="mb-4">@Model.Walker.Name's Profile</h1>
+
+    <section class="container">
+        <img style="width:100px;float:left;margin-right:20px"
+             src="@Model.Walker.ImageUrl" />
+        <div>
+            <div>
+                <label class="font-weight-bold">Name:</label>
+                <span>@Model.Walker.Name</span>
+            </div>
+            <label class="font-weight-bold">Neighborhood:</label>
+            <span>@Model.Walker.Neighborhood.Name</span>
+        </div>
+    </section>
+
+    <hr class="mt-5" />
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <section class="col-8 container mt-5">
+            <h2 class="text-left">Recent Walks</h2>
+
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Client</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                @foreach (Walk walk in Model.Walks)
+                {
+                    <tr>
+                        <td>@walk.Date</td>
+                        <td>@walk.Client.Name</td>
+                        <td>@walk.Duration min</td>
+                    </tr>
+                }
+            </table>
+        </section>
+
+        <section class="col-lg-4 col-md-8 container mt-5">
+            <h3 style="color:grey">Total Walk Time: </h3>
+            <h3>@Model.TotalDuration minutes</h3>
+        </section>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
