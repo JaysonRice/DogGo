@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,6 @@ namespace Doggo.Models.ViewModels
     {
         public Walker Walker { get; set; }
         public List<Walk> Walks { get; set; }
-
 
         public int TotalDuration { get; set; }
     }
